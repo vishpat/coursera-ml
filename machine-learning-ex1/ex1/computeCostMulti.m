@@ -13,8 +13,8 @@ J = 0;
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
 
-
-
+err_diff = X*theta - y;
+J = (err_diff' * err_diff)/(2*m);
 
 
 % =========================================================================
