@@ -23,7 +23,13 @@ figure; hold on;
 % =========================================================================
 
 
+pos = find(y == 1);
+neg = find(y == 0);
 
-hold off;
+plot(X(pos, 1), X(pos, 2), "kr+", "markersize", 10);
+plot(X(neg, 1), X(neg, 2), "kb*", "markersize", 10);
+
+xlabel("Exam 1 score");
+ylabel("Exam 2 score");
 
 end
