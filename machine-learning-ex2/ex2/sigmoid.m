@@ -4,12 +4,19 @@ function g = sigmoid(z)
 
 % You need to return the following variables correctly 
 g = zeros(size(z));
+cnt = size(z);
 
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the sigmoid of each value of z (z can be a matrix,
 %               vector or scalar).
 
-
+xlen = size(z, 1);
+ylen = size(z, 2);
+for i = 1:xlen
+    for j = 1:ylen
+        g(i, j) = 1.0 / (1 + exp(-1.0*z(i, j)));
+    end
+end
 
 
 
