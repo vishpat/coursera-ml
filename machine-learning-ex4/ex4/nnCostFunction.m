@@ -64,14 +64,11 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 J = 0;
-
 for i = 1:m
         a2 = sigmoid((Theta1)*(X(i, :)'));
         a2 = a2';
         a2 = [ones(size(a2, 1), 1) a2];
-        
         hx = sigmoid(Theta2*a2');
-	
         for k = 1:num_labels
 		yk = 0;
 		if (k == y(i))
@@ -82,6 +79,24 @@ for i = 1:m
 end
 
 J = J/m;
+
+% Account for regularization
+rsum = 0;
+for j = 1:size(Theta1, 1)
+    for k = 2:size(Theta1, 2)
+        rsum += Theta1(j,k)*Theta1(j,k);       
+    end 
+end
+
+for j = 1:size(Theta2, 1)
+    for k = 2:size(Theta2, 2)
+        rsum += Theta2(j,k)*Theta2(j,k);
+    end 
+end
+
+rsum = (rsum/(2*m));
+
+J = J + rsum;
 
 % -------------------------------------------------------------
 
