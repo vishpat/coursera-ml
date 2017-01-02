@@ -76,10 +76,6 @@ for i = 1:m
         z3 = Theta2 * a2;
         a3 = sigmoid(z3);
 
-%        disp(sprintf("a1 = %s theta1 = %s z2 = %s a2 = %s theta2 = %s a3 = %s",...
-%             disp(size(a1)), disp(size(Theta1)), disp(size(z2)),...
-%             disp(size(a2)), disp(size(Theta2)), disp(size(a3))));
-
         hx = a3;
         for k = 1:num_labels
 		yk = 0;
@@ -100,28 +96,30 @@ for i = 1:m
         D1 = D1 + d2*a1';
 end
 
+J = J/m;
 Theta1_grad = D1/m;
 Theta2_grad = D2/m;
-
-J = J/m;
 
 % Account for regularization
 rsum = 0;
 for j = 1:size(Theta1, 1)
     for k = 2:size(Theta1, 2)
-        rsum += Theta1(j,k)*Theta1(j,k);       
+        rsum += Theta1(j,k)*Theta1(j,k);     
+        Theta1_grad(j, k) += (lambda/m)*Theta1(j,k);
+
     end 
 end
 
 for j = 1:size(Theta2, 1)
     for k = 2:size(Theta2, 2)
         rsum += Theta2(j,k)*Theta2(j,k);
+        Theta2_grad(j, k) += (lambda/m)*Theta2(j,k);
     end 
 end
 
 rsum = (rsum/(2*m));
+J = J + rsum;
 
-%J = J + rsum;
 
 % -------------------------------------------------------------
 
