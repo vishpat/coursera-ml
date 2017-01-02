@@ -69,13 +69,18 @@ D2 = zeros(size(Theta2));
 
 for i = 1:m
         a1 = X(i, :);
-        z2 = (Theta1)*(a1');
+        a1 = a1';
+        z2 = Theta1 * a1;
         a2 = sigmoid(z2);
-        a2 = a2';
-        a2 = [ones(size(a2, 1), 1) a2];
-        hx = sigmoid(Theta2*a2');
-        a3 = hx;
+        a2 = [1; a2];
+        z3 = Theta2 * a2;
+        a3 = sigmoid(z3);
 
+%        disp(sprintf("a1 = %s theta1 = %s z2 = %s a2 = %s theta2 = %s a3 = %s",...
+%             disp(size(a1)), disp(size(Theta1)), disp(size(z2)),...
+%             disp(size(a2)), disp(size(Theta2)), disp(size(a3))));
+
+        hx = a3;
         for k = 1:num_labels
 		yk = 0;
 		if (k == y(i))
@@ -88,11 +93,11 @@ for i = 1:m
         output(y(i)) = 1;
 
         d3 = a3 - output;
-        D2 = D2 + d3*a2;
+        D2 = D2 + d3*a2';
         
-        d2 = (Theta2'*d3).*a2';
+        d2 = (Theta2'*d3).*(a2.*(1 - a2));
         d2 = d2(2:end);
-        D1 = D1 + d2*a1;
+        D1 = D1 + d2*a1';
 end
 
 Theta1_grad = D1/m;
