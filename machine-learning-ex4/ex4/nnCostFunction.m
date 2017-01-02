@@ -106,7 +106,6 @@ for j = 1:size(Theta1, 1)
     for k = 2:size(Theta1, 2)
         rsum += Theta1(j,k)*Theta1(j,k);     
         Theta1_grad(j, k) += (lambda/m)*Theta1(j,k);
-
     end 
 end
 
@@ -117,7 +116,7 @@ for j = 1:size(Theta2, 1)
     end 
 end
 
-rsum = (rsum/(2*m));
+rsum *= lambda/(2*m);
 J = J + rsum;
 
 
