@@ -41,12 +41,9 @@ Theta_grad = zeros(size(Theta));
 
 err_diff = R.*(X*Theta' - Y);
 
-J = 0.5*sum(sum(err_diff.^2)) + (lambda/2)*sum(sum(Theta.^2)) + (lambda/2)*sum(sum(X.^2)) ;
-X_grad = err_diff*Theta;
-Theta_grad = err_diff'*X;
-
-
-
+J = 0.5*(sum(sum(err_diff.^2)) + lambda*sum(sum(Theta.^2)) + lambda*sum(sum(X.^2)));
+X_grad = err_diff*Theta + lambda*X;
+Theta_grad = err_diff'*X + lambda*Theta;
 
 
 
