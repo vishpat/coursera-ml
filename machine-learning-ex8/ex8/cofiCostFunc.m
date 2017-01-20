@@ -10,7 +10,6 @@ function [J, grad] = cofiCostFunc(params, Y, R, num_users, num_movies, ...
 X = reshape(params(1:num_movies*num_features), num_movies, num_features);
 Theta = reshape(params(num_movies*num_features+1:end), ...
                 num_users, num_features);
-
             
 % You need to return the following values correctly
 J = 0;
@@ -40,12 +39,11 @@ Theta_grad = zeros(size(Theta));
 %                     partial derivatives w.r.t. to each element of Theta
 %
 
+err_diff = R.*(X*Theta' - Y);
 
-
-
-
-
-
+J = 0.5*sum(sum(err_diff.^2)) + (lambda/2)*sum(sum(Theta.^2)) + (lambda/2)*sum(sum(X.^2)) ;
+X_grad = err_diff*Theta;
+Theta_grad = err_diff'*X;
 
 
 
